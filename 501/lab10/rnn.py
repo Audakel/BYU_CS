@@ -1,6 +1,14 @@
-from tensorflow.python.ops import rnn_cell, seq2seq
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
+from tensorflow.python.framework import ops
+from tensorflow.python.ops import array_ops
+from tensorflow.python.ops import init_ops
+from tensorflow.python.ops import math_ops
+from tensorflow.python.ops import rnn_cell, seq2seq
+from tensorflow.python.ops import variable_scope as vs
+from tensorflow.python.ops.math_ops import sigmoid
+from tensorflow.python.ops.math_ops import tanh
+
 from textloader import TextLoader
 
 #
@@ -37,19 +45,71 @@ inputs = tf.split(1, sequence_length, in_onehot)
 inputs = [tf.squeeze(input_, [1]) for input_ in inputs]
 targets = tf.split(1, sequence_length, targ_ph)
 
+
 # at this point, inputs is a list of length sequence_length
 # each element of inputs is [batch_size,vocab_size]
 
 # targets is a list of length sequence_length
 # each element of targets is a 1D vector of length batch_size
 
+def _linear(args, output_size, bias, bias_start=0.0, scope=None):
+  total_arg_size = 0
+  shapes = [a.get_shape().as_list() for a in args]
+  for shape in shapes:
+    if len(shape) != 2:
+      raise ValueError("Linear is expecting 2D arguments: %s" % str(shapes))
+    if not shape[1]:
+      raise ValueError("Linear expects shape[1] of arguments: %s" % str(shapes))
+    else:
+      total_arg_size += shape[1]
+
+  dtype = [a.dtype for a in args][0]
+
+  with vs.variable_scope(scope or "Linear"):
+    matrix = vs.get_variable(
+        "Matrix", [total_arg_size, output_size], dtype=dtype)
+    if len(args) == 1:
+      res = math_ops.matmul(args[0], matrix)
+    else:
+      res = math_ops.matmul(array_ops.concat(1, args), matrix)
+    if not bias:
+      return res
+    bias_term = vs.get_variable(
+        "Bias", [output_size],
+        dtype=dtype,
+        initializer=init_ops.constant_initializer(
+            bias_start, dtype=dtype))
+  return res + bias_term
+
+class GRUCell(rnn_cell.RNNCell):
+    def __init__(self, num_units, input_size=None, activation=tanh):
+        self._num_units = num_units
+        self._activation = activation
+
+    @property
+    def state_size(self):
+        return self._num_units
+
+    @property
+    def output_size(self):
+        return self._num_units
+
+    def __call__(self, inputs, state, scope=None):
+        with vs.variable_scope(scope or type(self).__name__):
+            with vs.variable_scope("Gates"):
+                r, u = array_ops.split(1, 2, _linear([inputs, state], 2 * self._num_units, True, 1.0))
+                r, u = sigmoid(r), sigmoid(u)
+            with vs.variable_scope("Candidate"):
+                c = self._activation(_linear([inputs, r * state], self._num_units, True))
+            new_h = u * state + (1 - u) * c
+        return new_h, new_h
 
 
 # ------------------
 # YOUR COMPUTATION GRAPH HERE
 with tf.variable_scope("COMPUTATION", reuse=None):
     # create a BasicLSTMCell
-    cell = rnn_cell.BasicLSTMCell(state_dim)  # True )
+    cell = GRUCell(state_dim)  # True )
 
     #   use it to create a MultiRNNCell
     cell = rnn_cell.MultiRNNCell([cell] * num_layers)
@@ -71,9 +131,9 @@ with tf.variable_scope("COMPUTATION", reuse=None):
     probs = tf.nn.softmax(logits)
     # call seq2seq.sequence_loss
     loss = seq2seq.sequence_loss([logits],
-                                    [tf.reshape(targets, [-1])],
-                                    [tf.ones([batch_size * sequence_length])],
-                                    vocab_size)
+                                 [tf.reshape(targets, [-1])],
+                                 [tf.ones([batch_size * sequence_length])],
+                                 vocab_size)
     cost = tf.reduce_sum(loss) / batch_size / sequence_length
     final_state = last_state
     lr = tf.Variable(0.0, trainable=False)
@@ -86,24 +146,17 @@ with tf.variable_scope("COMPUTATION", reuse=None):
 
 # ------------------
 # YOUR SAMPLER GRAPH HERE
-s_in_ph = tf.placeholder(tf.int32, [1], name='s_in_ph')
-s_inputs = [tf.one_hot(s_in_ph, vocab_size, name="s_inputs")]
 
 # place your sampler graph here it will look a lot like your
 # computation graph, except with a "batch_size" of 1.
 
 with tf.variable_scope("COMPUTATION", reuse=True):
-    # ======
-    # s_in_ph = tf.placeholder(tf.int32, [1, 1], name='s_in_ph')
-    # s_inputs = tf.one_hot(s_in_ph, vocab_size, name="s_inputs")
-
-    # s_inputs_ = tf.split(1, 1, s_inputs)
-    # s_inputs_ = [tf.squeeze(input_, [1]) for input_ in s_inputs_]
-#    ======
+    s_in_ph = tf.placeholder(tf.int32, [1], name='s_in_ph')
+    s_inputs = [tf.one_hot(s_in_ph, vocab_size, name="s_inputs")]
 
     #   use it to create a MultiRNNCell
     # scope.reuse_variables()
-    s_cell = rnn_cell.BasicLSTMCell(state_dim)  # True )
+    s_cell = GRUCell(state_dim)  # True )
 
     #   use it to create a MultiRNNCell
     s_cell = rnn_cell.MultiRNNCell([s_cell] * num_layers)
@@ -172,6 +225,8 @@ def sample(num=200, prime='ab'):
     return ret
 
 
+
+
 #
 # ==================================================================
 # ==================================================================
@@ -213,7 +268,7 @@ for j in range(1000):
         state = retval[2:]
 
         if i % 1000 == 0:
-            print "%d %d\t%.4f" % ( j, i, lt )
+            print "%d %d\t%.4f" % (j, i, lt)
             lts.append(lt)
 
     print sample(num=60, prime="And ")
