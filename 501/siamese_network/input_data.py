@@ -25,7 +25,7 @@ def maybe_download(filename, work_directory):
     return filepath
 
 
-def extract_images_labels(filename):
+def extract_images_and_labels(filename):
     """
     After running this code,
     the data will in the data tensor,
@@ -60,6 +60,7 @@ def extract_images_labels(filename):
     ind = 0
     for fn in files:
         subject = fn.split('/')[2]
+        subject = subject[:-10]
         if not ids.has_key(subject):
             ids[subject] = scnt
             scnt += 1
@@ -71,13 +72,15 @@ def extract_images_labels(filename):
 
     # data is (13233, 250, 250)
     # labels is (13233, 1)
+    # Reshape image to flatten
+    image = image.reshape(image.shape[0], image.shape[1] * image.shape[2])
     return image, labels
 
 
 def read_data_sets(train_dir, fake_data=False, one_hot=False):
     ALL_IMAGES = 'lfwa.tar.gz'
     local_file = maybe_download(ALL_IMAGES, train_dir)
-    X, y = extract_images_labels(local_file)
+    X, y = extract_images_and_labels(local_file)
    
     # X_train, X_test, y_train, y_test
     return model_selection.train_test_split(X, y, test_size=0.2, random_state=42)

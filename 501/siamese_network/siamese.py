@@ -4,6 +4,7 @@ import time
 import tensorflow as tf
 import input_data
 import math
+from sklearn.metrics import accuracy_score
 
 batch_size = 128
 image_len = 250
@@ -12,21 +13,28 @@ flat_image_len = image_len * image_len
 # X_train, X_test, y_train, y_test
 X_train, X_test, y_train, y_test = input_data.read_data_sets("./data", one_hot=False)
 
-def create_pairs(x, digit_indices):
+
+def create_pairs(x, y):
     '''
     Positive and negative pair creation.
     Alternates between positive and negative pairs.
     '''
     pairs = []
     labels = []
-    n = min([len(digit_indices[d]) for d in range(10)]) - 1
-    for d in range(10):
-        for i in range(n):
-            z1, z2 = digit_indices[d][i], digit_indices[d][i + 1]
+
+    unique = np.unique(y)
+    digit_indices = [np.where(y == i)[0] for i in unique]
+    # zipped = zip(digit_indices, unique)
+    # Looks like [array([7223]) 2.0]
+    negatives = np.array(filter(lambda x: len(x) == 1, digit_indices))
+    # Looks like [array([   33,  6178,  8623,  9490, 10098]) 1.0]
+    positives = np.array(filter(lambda x: len(x) >= 2, digit_indices))
+    for d in positives:
+        for i in range(len(d) / 2):
+            z1, z2 = d[i], d[i + 1]
             pairs += [[x[z1], x[z2]]]
-            inc = random.randrange(1, 10)
-            dn = (d + inc) % 10
-            z1, z2 = digit_indices[d][i], digit_indices[dn][i]
+
+            z1, z2 = random.choice(negatives)[0], random.choice(negatives)[0]
             pairs += [[x[z1], x[z2]]]
             labels += [1, 0]
     return np.array(pairs), np.array(labels)
@@ -61,14 +69,17 @@ def contrastive_loss(y, d):
 
 
 def compute_accuracy(prediction, labels):
-    return labels[prediction.ravel() < 0.5].mean()
+    return accuracy_score(labels, prediction)
+
+    # return labels[prediction.ravel() < 0.5].mean()
     # return tf.reduce_mean(labels[prediction.ravel() < 0.5])
 
 
 def next_batch(s, e, inputs, labels):
-    input1 = inputs[s:e, 0]
-    input2 = inputs[s:e, 1]
-    y = np.reshape(labels[s:e], (len(range(s, e)), 1))
+    sample = np.random.randint(len(inputs), size=batch_size)
+    input1 = inputs[sample, 0]
+    input2 = inputs[sample, 1]
+    y = np.reshape(labels[sample], (batch_size, 1))
     return input1, input2, y
 
 
@@ -80,11 +91,10 @@ init = tf.initialize_all_variables()
 global_step = tf.Variable(0, trainable=False)
 starter_learning_rate = 0.001
 learning_rate = tf.train.exponential_decay(starter_learning_rate, global_step, 10, 0.1, staircase=True)
+
 # create training+test positive and negative pairs
-digit_indices = [np.where(y_train == i)[0] for i in range(10)]
-tr_pairs, tr_y = create_pairs(X_train, digit_indices)
-digit_indices = [np.where(y_test == i)[0] for i in range(10)]
-te_pairs, te_y = create_pairs(X_test, digit_indices)
+tr_pairs, tr_y = create_pairs(X_train, y_train)
+te_pairs, te_y = create_pairs(X_test, y_test)
 
 images_L = tf.placeholder(tf.float32, shape=([None, flat_image_len]), name='L')
 images_R = tf.placeholder(tf.float32, shape=([None, flat_image_len]), name='R')
@@ -135,7 +145,7 @@ with tf.Session() as sess:
         duration = time.time() - start_time
         print(
             'epoch %d  time: %f loss %0.5f acc %0.2f' % (
-            epoch, duration, avg_loss / (total_batch), avg_acc / total_batch))
+                epoch, duration, avg_loss / (total_batch), avg_acc / total_batch))
     y = np.reshape(tr_y, (tr_y.shape[0], 1))
     predict = distance.eval(feed_dict={images_L: tr_pairs[:, 0], images_R: tr_pairs[:, 1], labels: y, dropout_f: 1.0})
     tr_acc = compute_accuracy(predict, y)
