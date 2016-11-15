@@ -57,8 +57,14 @@ def mlpnet(image, _dropout):
     l1 = tf.nn.dropout(l1, _dropout)
     l2 = mlp(l1, batch_size, batch_size, name='l2')
     l2 = tf.nn.dropout(l2, _dropout)
+
     l3 = mlp(l2, batch_size, batch_size, name='l3')
-    return l3
+    l3 = tf.nn.dropout(l3, _dropout)
+    l4 = mlp(l3, batch_size, batch_size, name='l4')
+    l4 = tf.nn.dropout(l4, _dropout)
+
+    l5 = mlp(l4, batch_size, batch_size, name='l5')
+    return l5
 
 
 def contrastive_loss(y, d):
@@ -69,9 +75,12 @@ def contrastive_loss(y, d):
 
 
 def compute_accuracy(prediction, labels):
-    return accuracy_score(labels, prediction)
+    # return accuracy_score(labels, prediction)
+    # print('compute_accuracy')
+    #
+    # print('prediction {}, labels {}'.format(prediction[:5], labels[:5]))
 
-    # return labels[prediction.ravel() < 0.5].mean()
+    return labels[prediction.ravel() < 0.5].mean()
     # return tf.reduce_mean(labels[prediction.ravel() < 0.5])
 
 
@@ -109,6 +118,7 @@ with tf.variable_scope("siamese") as scope:
 
 distance = tf.sqrt(tf.reduce_sum(tf.pow(tf.sub(model1, model2), 2), 1, keep_dims=True))
 loss = contrastive_loss(labels, distance)
+
 # contrastice loss
 t_vars = tf.trainable_variables()
 d_vars = [var for var in t_vars if 'l' in var.name]
@@ -134,11 +144,13 @@ with tf.Session() as sess:
             input1, input2, y = next_batch(s, e, tr_pairs, tr_y)
             _, loss_value, predict = sess.run([optimizer, loss, distance],
                                               feed_dict={images_L: input1, images_R: input2, labels: y, dropout_f: 0.9})
+            # print(np.average(predict[:50]))
             feature1 = model1.eval(feed_dict={images_L: input1, dropout_f: 0.9})
             feature2 = model2.eval(feed_dict={images_R: input2, dropout_f: 0.9})
             tr_acc = compute_accuracy(predict, y)
             if math.isnan(tr_acc) and epoch != 0:
-                print('tr_acc %0.2f' % tr_acc)
+                pass
+                # print('tr_acc %0.2f' % tr_acc)
             avg_loss += loss_value
             avg_acc += tr_acc * 100
         # print('epoch %d loss %0.2f' %(epoch,avg_loss/total_batch))
