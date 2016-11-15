@@ -1,16 +1,18 @@
 """Functions for downloading and reading MNIST data."""
 from __future__ import print_function
+
 import os
+import subprocess
 import urllib
+
 import numpy
 from PIL import Image
-import subprocess
+from resizeimage import resizeimage
 from sklearn import model_selection
-
 
 SOURCE_URL = 'http://www.openu.ac.il/home/hassner/data/lfwa/'
 
-
+# https://s13.postimg.org/i75d2auh3/graph_run.png
 def maybe_download(filename, work_directory):
     """Download the data from website, unless it's already here."""
     if not os.path.exists(work_directory):
@@ -25,7 +27,7 @@ def maybe_download(filename, work_directory):
     return filepath
 
 
-def extract_images_and_labels(filename):
+def extract_images_and_labels(filename, resize=False, size=25):
     """
     After running this code,
     the data will in the data tensor,
@@ -49,13 +51,12 @@ def extract_images_and_labels(filename):
     """
     files = open('./list.txt').readlines()
 
-    image = numpy.zeros((len(files), 250, 250))
+    image = numpy.zeros((len(files), size, size))
     labels = numpy.zeros((len(files), 1))
 
     # a little hash map mapping subjects to IDs
     ids = {}
     scnt = 0
-
     # load in all of our images
     ind = 0
     for fn in files:
@@ -65,11 +66,15 @@ def extract_images_and_labels(filename):
             ids[subject] = scnt
             scnt += 1
         label = ids[subject]
+        if resize:
+            with open(fn.rstrip(), 'r+b') as f:
+                with Image.open(f) as i:
+                    cover = resizeimage.resize_cover(i, [size, size])
+                    cover.save(fn, i.format)
 
-        image[ind, :, :] = numpy.array(Image.open(fn.rstrip()))
-        labels[ind] = label
-        ind += 1
-
+            image[ind, :, :] = numpy.array(cover)
+            labels[ind] = label
+            ind += 1
     # data is (13233, 250, 250)
     # labels is (13233, 1)
     # Reshape image to flatten
@@ -80,7 +85,7 @@ def extract_images_and_labels(filename):
 def read_data_sets(train_dir, fake_data=False, one_hot=False):
     ALL_IMAGES = 'lfwa.tar.gz'
     local_file = maybe_download(ALL_IMAGES, train_dir)
-    X, y = extract_images_and_labels(local_file)
-   
+    X, y = extract_images_and_labels(local_file, resize=True, size=25)
+
     # X_train, X_test, y_train, y_test
     return model_selection.train_test_split(X, y, test_size=0.2, random_state=42)

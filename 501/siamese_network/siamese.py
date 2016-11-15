@@ -1,13 +1,14 @@
-import random
-import numpy as np
-import time
-import tensorflow as tf
-import input_data
 import math
-from sklearn.metrics import accuracy_score
+import random
+import time
+
+import numpy as np
+import tensorflow as tf
+
+import input_data
 
 batch_size = 128
-image_len = 250
+image_len = 25
 flat_image_len = image_len * image_len
 
 # X_train, X_test, y_train, y_test
@@ -128,10 +129,12 @@ optimizer = tf.train.AdamOptimizer(learning_rate=0.0001).minimize(loss)
 # Launch the graph
 print('Launch the graph')
 with tf.Session() as sess:
+    summary_writer = tf.train.SummaryWriter('./logs', sess.graph)
+
     # sess.run(init)
     tf.initialize_all_variables().run()
     # Training cycle
-    for epoch in range(30):
+    for epoch in range(300):
         avg_loss = 0.
         avg_acc = 0.
         total_batch = int(X_train.shape[0] / batch_size)
