@@ -1,5 +1,30 @@
 
+=== Stratified cross-validation ===
+=== Summary ===
 
+Correctly Classified Instances         248               81.8482 %
+Incorrectly Classified Instances        55               18.1518 %
+Kappa statistic                          0.633 
+Mean absolute error                      0.1871
+Root mean squared error                  0.4023
+Relative absolute error                 37.7102 %
+Root relative squared error             80.7762 %
+Total Number of Instances              303     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.783     0.152      0.812     0.783     0.797      0.879    Sick
+                 0.848     0.217      0.824     0.848     0.836      0.879    Healthy
+Weighted Avg.    0.818     0.187      0.818     0.818     0.818      0.879
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 108  30 |   a = Sick
+  25 140 |   b = Healthy
+
+==========================================================================================
 XMeans
 ======
 Requested iterations            : 1
