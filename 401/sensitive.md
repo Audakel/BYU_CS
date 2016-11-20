@@ -5,10 +5,13 @@ In the most abstract form, sensitive information (SensI) consists of two parts- 
 
 ### Introduction
 We describe an approach for unsupervised learning for discovering SensI by building a model of of all conventually known information through converting sentences into thoughtVectors that captures the meaning of every sentence on Wikipedia. We then calculate the euclidean distance for thoughts in a NewD to known thoughts with the given loss function.
+
 ![alt text](http://i.imgur.com/mMagavR.png)
+
 if the distance is greater than some N to any known thought we conclude it is unknonw.
 
 A second proccess is using a distributed sentence encoder. Using the continuity of text from Wikipedia, we train an encoder-decoder model that tries to reconstruct the surrounding sentences in a NewD with the following loss function.
+
 ![alt text](http://i.imgur.com/4QFkssS.png)
 
 Sentences that share semantic and syntactic properties are thus mapped to similar vector representations. If we are unable to meet a certain accuracy level when reconstructing a NewD, we conclude it is unknonw.
