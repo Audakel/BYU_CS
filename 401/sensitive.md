@@ -28,8 +28,7 @@ he slipped his hand between his coat and his shirt , where the folded copies lay
 im sure youll have a glamorous evening , she said , giving an exaggerated wink .
 im really glad you came to the party tonight , he said , turning to her .
 ***
-although she could tell he had n’t been too invested in any of their other chitchat , he seemed genuinely curious about this .
-although he had n’t been following her career with a microscope , he ’d definitely taken notice of her appearances .
+although she could tell he had n’t been too invested in any of their other chitchat , he seemed genuinely curious about this although he had n’t been following her career with a microscope , he ’d definitely taken notice of her appearances .
 ***
 an annoying buzz started to ring in my ears , becoming louder and louder as my vision began to swim .
 a weighty pressure landed on my lungs and my vision blurred at the edges , threatening my consciousness altogether .
@@ -41,8 +40,8 @@ then , with a stroke of luck , they saw the pair head together towards the porta
 then , from out back of the house , they heard a horse scream probably in answer to a pair of sharp spurs digging deep into 
 its flanks .
 ***
-“ i ’ll take care of it , ” goodman said , taking the phonebook .
-“ i ’ll do that , ” julia said , coming in .
+“i ’ll take care of it , ” goodman said , taking the phonebook
+“i ’ll do that , ” julia said , coming in .
 ***
 he finished rolling up scrolls and , placing them to one side , began the more urgent task of finding ale and tankards .
 he righted the table , set the candle on a piece of broken plate , and reached for his flint , steel , and tinder 
