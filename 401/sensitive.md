@@ -18,3 +18,30 @@ Sentences that share semantic and syntactic properties are thus mapped to simila
 
 #### Examples of SensI:
 Personal information, protected health information, student education records, customer record information, card holder data, confidential personal data, financials, blueprints, trade secrets etc.
+
+
+#### Example query and nearest sentence
+he ran his hand inside his coat , double-checking that the unopened letter was still there .
+he slipped his hand between his coat and his shirt , where the folded copies lay in a brown envelope .
+***
+im sure youll have a glamorous evening , she said , giving an exaggerated wink .
+im really glad you came to the party tonight , he said , turning to her .
+***
+although she could tell he had n’t been too invested in any of their other chitchat , he seemed genuinely curious about this .
+although he had n’t been following her career with a microscope , he ’d definitely taken notice of her appearances .
+***
+an annoying buzz started to ring in my ears , becoming louder and louder as my vision began to swim .
+a weighty pressure landed on my lungs and my vision blurred at the edges , threatening my consciousness altogether .
+***
+if he had a weapon , he could maybe take out their last imp , and then beat up errol and vanessa .
+if he could ram them from behind , send them sailing over the far side of the levee , he had a chance of stopping them .
+***
+then , with a stroke of luck , they saw the pair head together towards the portaloos .
+then , from out back of the house , they heard a horse scream probably in answer to a pair of sharp spurs digging deep into 
+its flanks .
+***
+“ i ’ll take care of it , ” goodman said , taking the phonebook .
+“ i ’ll do that , ” julia said , coming in .
+***
+he finished rolling up scrolls and , placing them to one side , began the more urgent task of finding ale and tankards .
+he righted the table , set the candle on a piece of broken plate , and reached for his flint , steel , and tinder 
