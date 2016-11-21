@@ -20,7 +20,7 @@ Sentences that share semantic and syntactic properties are thus mapped to simila
 Personal information, protected health information, student education records, customer record information, card holder data, confidential personal data, financials, blueprints, trade secrets etc.
 
 
-#### Example nearby ideas
+#### Example nearby ideas in idea space
 
 + he ran his hand inside his coat , double-checking that the unopened letter was still there .
 + he slipped his hand between his coat and his shirt , where the folded copies lay in a brown envelope .
