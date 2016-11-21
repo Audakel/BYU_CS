@@ -21,6 +21,7 @@ Personal information, protected health information, student education records, c
 
 
 #### Example query and nearest sentence
+
 he ran his hand inside his coat , double-checking that the unopened letter was still there .
 he slipped his hand between his coat and his shirt , where the folded copies lay in a brown envelope .
 ***
