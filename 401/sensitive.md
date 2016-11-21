@@ -57,3 +57,10 @@ its flanks .
 
 ### Reference
 [Skip-Thought Vectors] (https://chara.cs.illinois.edu/sites/fa16-cs591txt/pdf/Kiros-2015-NIPS.pdf): Ryan Kiros, Yukun Zhu, Ruslan Salakhutdinov, Richard S. Zemel
+
+@article{kiros2015skip,
+  title={Skip-Thought Vectors},
+  author={Kiros, Ryan and Zhu, Yukun and Salakhutdinov, Ruslan and Zemel, Richard S and Torralba, Antonio and Urtasun, Raquel and Fidler, Sanja},
+  journal={arXiv preprint arXiv:1506.06726},
+  year={2015}
+}
