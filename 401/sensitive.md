@@ -53,3 +53,7 @@ its flanks .
 ***
 + he finished rolling up scrolls and , placing them to one side , began the more urgent task of finding ale and tankards .
 + he righted the table , set the candle on a piece of broken plate , and reached for his flint , steel , and tinder 
+
+
+### Reference
+[Skip-Thought Vectors] https://chara.cs.illinois.edu/sites/fa16-cs591txt/pdf/Kiros-2015-NIPS.pdf
