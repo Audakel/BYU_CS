@@ -24,9 +24,11 @@ Personal information, protected health information, student education records, c
 
 + he ran his hand inside his coat , double-checking that the unopened letter was still there .
 + he slipped his hand between his coat and his shirt , where the folded copies lay in a brown envelope .
+
 ***
 + im sure youll have a glamorous evening , she said , giving an exaggerated wink .
 + im really glad you came to the party tonight , he said , turning to her .
+
 ***
 + although she could tell he had n’t been too invested in any of their other chitchat , he seemed genuinely curious about this 
 + although he had n’t been following her career with a microscope , he ’d definitely taken notice of her appearances .
