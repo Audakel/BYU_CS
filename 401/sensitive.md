@@ -67,3 +67,5 @@ its flanks .
 }
 
 devise last week slide
+project words into vectors, use parsy mcparseface to add on the tags b4 projection? talk to dr. seppi
+use wingates wikipedia set
