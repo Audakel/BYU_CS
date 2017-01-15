@@ -1,0 +1,63 @@
+Homework 2
+Please do the following homework problems from the text.
+
+
+=============================================
+2.56)
+Intel® Core™ i5-6500 CPU @ 3.20GHz × 4, 64-bit
+littlendian
+
+	2.62
+	Decimal value 666:
+		As int:  9a 02 00 00
+		As float:  00 80 26 44
+		As pointer:  f8 f5 5d 18 fe 7f 00 00
+	Hex value 0x666:
+		As int:  66 06 00 00
+		As float:  00 c0 cc 44
+		As pointer:  f8 f5 5d 18 fe 7f 00 00
+	Hex value 0x666:
+		As int:  66 06 00 00
+		As float:  00 c0 cc 44
+		As pointer:  f8 f5 5d 18 fe 7f 00 00
+
+powerpc virtual machine on imaal2.byu.edu
+bigendian
+
+	Decimal value 666:
+		As int:  00 00 02 9a
+		As float:  44 26 80 00
+		As pointer:  bf a8 ee c0
+	Hex value 0x666:
+		As int:  00 00 06 66
+		As float:  44 cc c0 00
+		As pointer:  bf a8 ee c0
+	Hex value 0x666:
+		As int:  00 00 06 66
+		As float:  44 cc c0 00
+		As pointer:  bf a8 ee c0
+
+
+=============================================
+2.70)
+int mask = x >> 31;
+return !(((~x & mask) + (x & ~mask)) >> (n + ~0));
+
+
+=============================================
+2.82
+a. Is disproved by x == INT_MIN, y == INT_MIN + 1, because INT_MIN == -INT_MIN
+b. True << 4 == * 16
+c. True
+d. True, no internal representaion change
+e. True, brings back zeros
+
+
+=============================================
+2.89
+
+a. might loose high order bit info
+b. false, overflow
+c. false, overflow
+d. false, overflow
+e. not sure

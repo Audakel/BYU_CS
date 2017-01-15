@@ -1,0 +1,14 @@
+// 
+
+Perform levels 0 through 8 of the following tutorial: http://overthewire.org/wargames/bandit/bandit0.html. Save the contents of your sessions for each level for turn-in.  Note: At each level, you are logging in to the the same machine (i.e., bandit.labs.overthewire.org) as a new user corresponding to the level (e.g., bandit0 for level0, bandit1 for level1, etc.).  This might not be clear from the instructions.
+
+
+
+1:boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+2:CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+3:UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+4:pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+5:koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+6:DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+7:HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+8:cvX2JJa4CFALtqS87jk27qwqGhBM9plV

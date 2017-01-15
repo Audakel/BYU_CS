@@ -1,0 +1,42 @@
+Finite Field Arithmetic
+=======================
+
+=====================================================================
+Submit pseudo-code for the MixColumns function in 5.1.3. Your submission should demonstrate that you understand how to implement the ideas in section 4. Study these sections and the lecture slides to be able to distinguish between the abstract mathematical ideas (e.g., polynomial representation) and the implementation methodology (i.e., bit shifting, MOD, AND, XOR).﻿ 
+
+def mixcolumns(state):
+    # for each column, compute new values for each cell by multiplying (ffmultiply) by the matrix:
+    # [[ 0x02  0x03  0x01  0x01 ]
+    #  [ 0x01  0x02  0x03  0x01 ]
+    #  [ 0x01  0x01  0x02  0x03 ]
+    #  [ 0x03  0x01  0x01  0x02 ]]
+
+    # for each column in the state (there should only be 4)...
+
+        # get the column from the state
+
+        # create a new column (initialized to all 0s)
+
+        # compute the new values doing the matrix multiply
+
+        # set the new column in the state
+
+    # return the modified state
+
+=====================================================================
+
+=====================================================================
+Submit code for a finite field multiply function that takes two bytes as input and produces a byte as output, the result of multiplying a * b where * is the finite field multiply described in section 4.2. Your code should use an xtime function that is described in 4.2.1. 
+
+def ffmultiply(op, times):
+    product = 0
+    curr_bit = MIN_TIME_BIT
+
+    while current_bit <= times:
+        if times & curr_bit == curr_bit:
+            prod = ff_add(product, x_time(op, curr_bit))
+
+        curr_bit <<= 1
+
+    return prod
+=====================================================================
