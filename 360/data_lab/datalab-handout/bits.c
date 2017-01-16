@@ -256,19 +256,28 @@ int bitCount(int x) {
  *   Examples: bang(3) = 0, bang(0) = 1
  *   Legal ops: ~ & ^ | + << >>
  *   Max ops: 12
- *   Rating: 4 
+ *   Rating: 4
+ *
+ *   !0011 = 0
+ *   !0000 = 1
  */
 int bang(int x) {
-  return 2;
+    x = (x >> 16) | x;
+    x = (x >> 8)  | x;
+    x = (x >> 4)  | x;
+    x = (x >> 2)  | x;
+    x = (x >> 1)  | x;
+
+    return ~x & 1;
 }
 /* 
- * tmin - return minimum two's complement integer 
+ * tmin - return minimum two's complement integer
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 4
  *   Rating: 1
  */
 int tmin(void) {
-  return 2;
+    return 1 << 31;
 }
 /* 
  * fitsBits - return 1 if x can be represented as an 
@@ -280,7 +289,9 @@ int tmin(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+    int mask = x >> 31;
+
+    return !(((~x & mask) + (x & ~mask)) >> (n + ~0));
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -334,8 +345,15 @@ int isLessOrEqual(int x, int y) {
  *   Max ops: 90
  *   Rating: 4
  */
-int ilog2(int x) {
-  return 2;
+int ilog2(int u) {
+    unsigned int s, t;
+
+    t = (u > 0xffff) << 4; u >>= t;
+    s = (u > 0xff  ) << 3; u >>= s, t |= s;
+    s = (u > 0xf   ) << 2; u >>= s, t |= s;
+    s = (u > 0x3   ) << 1; u >>= s, t |= s;
+
+    return (t | (u >> 1));
 }
 /* 
  * float_neg - Return bit-level equivalent of expression -f for
@@ -349,7 +367,12 @@ int ilog2(int x) {
  *   Rating: 2
  */
 unsigned float_neg(unsigned uf) {
- return 2;
+    unsigned mask = 0x80000000;
+    unsigned NaN = 0x7FC00000;
+    unsigned inf = 0xFFC00000;
+    if (uf == NaN || uf == inf)
+        return uf;
+    return uf ^ mask;
 }
 /* 
  * float_i2f - Return bit-level equivalent of expression (float) x
@@ -361,7 +384,42 @@ unsigned float_neg(unsigned uf) {
  *   Rating: 4
  */
 unsigned float_i2f(int x) {
-  return 2;
+    unsigned sign, fraction, exponent = 150, temp, b = 2, top, bottom;
+    if (x == 0) return 0;
+    if (x == 0x80000000) return 3472883712u;
+    sign = (x & 0x80000000);
+    fraction = (sign) ? (-x) : (x);
+
+    temp = fraction;
+    while (temp & 0xFF000000) {
+        /* standard rounding */
+        temp = (fraction + (b / 2)) / (b);
+        b <<= 1;
+        exponent++;
+    }
+    while (temp <= 0x007FFFFF) {
+        temp <<= 1;
+        exponent--;
+    }
+    if (fraction & 0xFF000000) {
+        b = 1 << (exponent - 150);
+
+        temp = fraction / b;
+        bottom = fraction % b;
+        top = b - bottom;
+
+        /* if temp is closer to fraction/b than fraction/b + 1, or its odd,
+         round up */
+        if ((top < bottom) || ((top == bottom) & temp))
+            ++temp;
+
+        fraction = temp;
+    } else {
+        while (fraction <= 0x007FFFFF)
+            fraction <<= 1;
+    }
+
+    return (sign) | (exponent << 23) | (fraction & 0x007FFFFF);
 }
 /* 
  * float_twice - Return bit-level equivalent of expression 2*f for
@@ -375,5 +433,20 @@ unsigned float_i2f(int x) {
  *   Rating: 4
  */
 unsigned float_twice(unsigned uf) {
-  return 2;
+    unsigned expn = (uf >> 23) & 0xFF;
+    unsigned sign = uf & 0x80000000;
+    unsigned frac = uf & 0x007FFFFF;
+    if (expn == 255 || (expn == 0 && frac == 0))
+        return uf;
+
+    if (expn) {
+        expn++;
+    } else if (frac == 0x7FFFFF) {
+        frac--;
+        expn++;
+    } else {
+        frac <<= 1;
+    }
+
+    return (sign) | (expn << 23) | (frac);
 }
