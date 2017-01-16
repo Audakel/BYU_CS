@@ -1,0 +1,3 @@
+/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/CMakeFiles/data_lab.dir
