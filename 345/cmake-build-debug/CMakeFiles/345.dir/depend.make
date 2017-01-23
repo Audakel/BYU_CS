@@ -61,6 +61,7 @@ CMakeFiles/345.dir/os345signals.c.o: ../os345signals.c
 CMakeFiles/345.dir/os345signals.c.o: ../os345signals.h
 
 CMakeFiles/345.dir/os345tasks.c.o: ../os345.h
+CMakeFiles/345.dir/os345tasks.c.o: ../os345lc3.h
 CMakeFiles/345.dir/os345tasks.c.o: ../os345signals.h
 CMakeFiles/345.dir/os345tasks.c.o: ../os345tasks.c
 

@@ -27,7 +27,8 @@
 #include "os345.h"
 #include "os345signals.h"
 //#include "os345config.h"
-
+#include "os345lc3.h"
+extern PQueue rq;
 
 extern TCB tcb[];							// task control block
 extern int curTask;							// current task #
@@ -74,10 +75,17 @@ int createTask(char* name,						// task name
 
 			// ?? malloc new argv parameters
 			tcb[tid].argv = argv;			// argument pointers
+            for (int i = 0; i < argc; i++){
+                tcb[tid].argv[i] = malloc(sizeof(char) * strlen(argv[i]));
+				strcpy(tcb[tid].argv[i], argv[i]);
+            }
+
 
 			tcb[tid].event = 0;				// suspend semaphore
 			tcb[tid].RPT = 0;					// root page table (project 5)
+			//tcb[tid].RPT = LC3_RPT + ((tid) ? ((tid-1)<<6) : 0);		// root page table (project 5)
 			tcb[tid].cdir = CDIR;			// inherit parent cDir (project 6)
+			// tcb[tid].taskTime = 0; // inherit parent cDir (project 6)
 
 			// define task signals
 			createTaskSigHandlers(tid);
@@ -86,6 +94,14 @@ int createTask(char* name,						// task name
 			tcb[tid].stack = malloc(STACK_SIZE * sizeof(int));
 
 			// ?? may require inserting task into "ready" queue
+			if (DEBUG_QUEUE) {
+				printf("\nEnqueing tid: %d", tid);
+				printf("\nReadyQueue size before %d",rq[0]);
+			}
+			enQ(rq, tid, tcb[tid].priority);
+			if (DEBUG_QUEUE) {
+				printf("\nReadyQueue size after %d",rq[0]);
+			}
 
 			if (tid) swapTask();				// do context switch (if not cli)
 			return tid;							// return tcb index (curTask)
@@ -152,6 +168,10 @@ int sysKillTask(int taskId)
 	Semaphore** semLink = &semaphoreList;
 
 	// assert that you are not pulling the rug out from under yourself!
+    if (DEBUG_TASKS) {
+		printf("\nSysKillTask:\n\tTask name: %s\n\tsuperMode: %s", tcb[taskId].name, superMode ? "true" : "false");
+	}
+
 	assert("sysKillTask Error" && tcb[taskId].name && superMode);
 	printf("\nKill Task %s", tcb[taskId].name);
 
@@ -174,7 +194,14 @@ int sysKillTask(int taskId)
 	}
 
 	// ?? delete task from system queues
+	for (int i = tcb[taskId].argc - 1; i > -1; i--){
+		free(tcb[taskId].argv[i]);
+	}
 
-	tcb[taskId].name = 0;			// release tcb slot
+	for (int i = tcb[taskId].argc - 1; i > -1; i--) {
+		free(tcb[taskId].argv[i]);
+	}
+	tcb[taskId].name = 0; // release tcb slot
+
 	return 0;
 } // end sysKillTask

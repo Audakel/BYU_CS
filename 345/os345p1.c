@@ -32,6 +32,15 @@ extern jmp_buf reset_context;
 extern TCB tcb[];
 extern int curTask;
 
+#define NUM_COMMANDS 51
+typedef struct {
+    char* command;
+    char* shortcut;
+    int (*func) (int, char**);
+    char* description;
+} Command;
+
+
 // ***********************************************************************
 // project 1 global variables
 //
@@ -70,14 +79,15 @@ int P1_shellTask(int argc, char *argv[]) {
     int i, found;
     int newArgc;                            // # of arguments
     char **newArgv;                            // pointers to arguments
+    const char amp[2] = "&";
 
     // initialize shell commands
     commands = P1_init();                    // init shell commands
 
     sigAction(mySigIntHandler, mySIGINT);
 
-
     while (1) {
+        bool backgroundTask = FALSE;
         // output prompt
         if (diskMounted) printf("\n%s>>", dirPath);
         else printf("\n%ld>>", swapCount);
@@ -93,6 +103,7 @@ int P1_shellTask(int argc, char *argv[]) {
         // ?? must use malloc for argv storage!
         {
             static char *sp, *myArgv[MAX_ARGS];
+
 
             // init arguments
             newArgc = 1;
@@ -268,9 +279,10 @@ Command *newCommand(char *command, char *shortcut, int (*func)(int, char **), ch
 } // end newCommand
 
 
-Command **P1_init() {
-    int i = 0;
-    Command **commands = (Command **) malloc(sizeof(Command *) * NUM_COMMANDS);
+Command** P1_init()
+{
+    int i  = 0;
+    Command** commands = (Command**)malloc(sizeof(Command*) * NUM_COMMANDS);
 
     // system
     commands[i++] = newCommand("quit", "q", P1_quit, "Quit");
@@ -280,9 +292,9 @@ Command **P1_init() {
     // P1: Shell
     commands[i++] = newCommand("project1", "p1", P1_project1, "P1: Shell");
     commands[i++] = newCommand("help", "he", P1_help, "OS345 Help");
+    commands[i++] = newCommand("add", "add", P1_add, "Add - adds follow args (handles int and hex)");
+    commands[i++] = newCommand("args", "args", P1_args, "Prints out args given in command line");
     commands[i++] = newCommand("lc3", "lc3", P1_lc3, "Execute LC3 program");
-    commands[i++] = newCommand("add", "add", P1_add, "Adds numbers");
-    commands[i++] = newCommand("args", "args", P1_args, "Lists args");
 
     // P2: Tasking
     commands[i++] = newCommand("project2", "p2", P2_project2, "P2: Tasking");
@@ -294,6 +306,7 @@ Command **P1_init() {
     // P3: Jurassic Park
     commands[i++] = newCommand("project3", "p3", P3_project3, "P3: Jurassic Park");
     commands[i++] = newCommand("deltaclock", "dc", P3_dc, "List deltaclock entries");
+//    commands[i++] = newCommand("testDeltaClock", "tdc", P3_tdc, "Test deltaclock implementation");
 
     // P4: Virtual Memory
     commands[i++] = newCommand("project4", "p4", P4_project4, "P4: Virtual Memory");
@@ -313,6 +326,8 @@ Command **P1_init() {
 
     // P5: Scheduling
     commands[i++] = newCommand("project5", "p5", P5_project5, "P5: Scheduling");
+//	commands[i++] = newCommand("stress1", "t1", P5_stress1, "ATM stress test1");
+//	commands[i++] = newCommand("stress2", "t2", P5_stress2, "ATM stress test2");
 
     // P6: FAT
     commands[i++] = newCommand("project6", "p6", P6_project6, "P6: FAT");

@@ -25,6 +25,17 @@
 #define INTEGER(s)	((s)?(isdigit(*s)||(*s=='-')?(int)strtol(s,0,0):0):0)
 
 // ***********************************************************************
+
+// DEBUGGING
+#define DEBUG_STATEMENT(b,s,...)     if(b){printf(s,##__VA_ARGS__);}
+#define DEBUG_OVERRIDE		TRUE
+#define DEBUG_SIGNALS		FALSE || DEBUG_OVERRIDE
+#define DEBUG_QUEUE 		FALSE || DEBUG_OVERRIDE
+#define DEBUG_DELTA_CLOCK   FALSE || DEBUG_OVERRIDE
+#define DEBUG_TASKS 		FALSE || DEBUG_OVERRIDE
+#define DEBUG_PARSER		FALSE || DEBUG_OVERRIDE
+#define DEBUG_MMU FALSE || DEBUG_OVERRIDE
+
 // Miscellaneous equates
 #define MAX_TASKS 			127
 #define MAX_STRING_SIZE		127
@@ -67,6 +78,8 @@ enum {PAGE_INIT, PAGE_READ, PAGE_OLD_WRITE, PAGE_NEW_WRITE,
 // system structs
 typedef int bool;						// boolean value
 typedef int TID;						// task id
+typedef int* PQueue;
+typedef int Priority;
 
 // semaphore
 typedef struct semaphore			// semaphore
@@ -88,11 +101,11 @@ typedef struct							// task control block
 	int argc;							// task argument count (project 1)
 	char** argv;						// task argument pointers (project 1)
 	int signal;							// task signals (project 1)
-//	void (*sigContHandler)(void);	// task mySIGCONT handler
+	void (*sigContHandler)(void);	// task mySIGCONT handler
 	void (*sigIntHandler)(void);	// task mySIGINT handler
-//	void (*sigKillHandler)(void);	// task mySIGKILL handler
-//	void (*sigTermHandler)(void);	// task mySIGTERM handler
-//	void (*sigTstpHandler)(void);	// task mySIGTSTP handler
+	void (*sigKillHandler)(void);	// task mySIGKILL handler
+	void (*sigTermHandler)(void);	// task mySIGTERM handler
+	void (*sigTstpHandler)(void);	// task mySIGTSTP handler
 	TID parent;							// task parent
 	int RPT;								// task root page table (project 5)
 	int cdir;							// task directory (project 6)
@@ -116,6 +129,7 @@ typedef struct
 
 // ***********************************************************************
 // system prototypes
+int enQ(PQueue queue, TID taskId, Priority priority);
 int createTask(char*, int (*)(int, char**), int, int, char**);
 int killTask(int taskId);
 void powerDown(int code);
@@ -154,14 +168,6 @@ int semTryLock(Semaphore*);
 // ***********************************************************************
 // Command prototypes
 
-#define NUM_COMMANDS 51
-typedef struct								// command struct
-{
-	char* command;
-	char* shortcut;
-	int (*func)(int, char**);
-	char* description;
-} Command;
 
 int P1_shellTask(int, char**);
 

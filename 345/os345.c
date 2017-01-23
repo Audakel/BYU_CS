@@ -36,6 +36,7 @@
 void pollInterrupts(void);
 static int scheduler(void);
 static int dispatcher(void);
+int allotTime();
 
 //static void keyboard_isr(void);
 //static void timer_isr(void);
@@ -55,6 +56,7 @@ Semaphore* inBufferReady;			// input buffer ready semaphore
 
 Semaphore* tics1sec;				// 1 second semaphore
 Semaphore* tics10thsec;				// 1/10 second semaphore
+Semaphore* tics10sec;
 
 // **********************************************************************
 // **********************************************************************
@@ -76,14 +78,85 @@ int inBufIndx;						// input pointer into input buffer
 char inBuffer[INBUF_SIZE+1];		// character input buffer
 //Message messages[NUM_MESSAGES];		// process message buffers
 
+int deltaTics;
 int pollClock;						// current clock()
 int lastPollClock;					// last pollClock
 bool diskMounted;					// disk has been mounted
 
 time_t oldTime1;					// old 1sec time
+time_t oldTime10;					// old 1sec time
 clock_t myClkTime;
 clock_t myOldClkTime;
-int* rq;							// ready priority queue
+PQueue rq;							// ready priority queue
+bool schedulerPass = FALSE;
+
+int enQ(PQueue queue, TID taskId, Priority priority){
+    if (queue[0] == MAX_TASKS){
+        return -1;
+    }
+
+    for (int i = queue[0] + 1; i > 0; i--){
+        if ((i == 1) || priority > tcb[queue[i-1]].priority){
+            queue[i] = taskId;
+            break;
+        }
+        queue[i] = queue[i-1];
+    }
+
+    queue[0]++;
+
+    if (DEBUG_QUEUE && (!schedulerPass || !tcb[taskId].name)){
+        printf("\nEnque PQueue:");
+        for (int i = queue[0]; i > 0; i--) {
+            printf("\n\t%s - %d", tcb[queue[i]].name, tcb[queue[i]].priority);
+        }
+        printf("\nEnd PQueue");
+    }
+
+    return taskId;
+}
+
+int deQ(PQueue queue, TID taskId){
+   TID res = -1;
+    if (queue[0] == 0){
+        return  res;
+    }
+
+    if (taskId == -1){
+        res = queue[queue[0]];
+    }
+
+
+    for (int i = queue[0]; i > 0; i--) {
+        if (queue[i] == taskId) {
+            for (; i < queue[0]; i++) {
+                queue[i] = queue[i + 1];
+            }
+            res = taskId;
+        }
+    }
+
+    if (res > -1){
+        queue[queue[0]] = NULL;
+        queue[0]--;
+    }
+
+    if (DEBUG_QUEUE && !schedulerPass) {
+        printf("\nDeQ PQueue:");
+        for (int i = queue[0]; i > 0; i--) {
+            printf("\n\t%s - %d", tcb[queue[i]].name, tcb[queue[i]].priority);
+        }
+        printf("\nEnd Priority Queue");
+    }
+
+    if (res < 0 || !tcb[res].name) { //if task being returned is dead return -1
+        return -1;
+    }
+
+    return res;
+
+
+}
 
 
 // **********************************************************************
