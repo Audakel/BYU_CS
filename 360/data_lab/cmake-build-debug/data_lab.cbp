@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="data_lab"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="data_lab">
+				<Option output="/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/data_lab" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 data_lab"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="data_lab/fast">
+				<Option output="/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/data_lab" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 data_lab/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/audakel/Desktop/byu_cs/360/data_lab/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/bits.c">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/bits.h">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/btest.c">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/btest.h">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/decl.c">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/fshow.c">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/ishow.c">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/datalab-handout/tests.c">
+			<Option target="data_lab"/>
+		</Unit>
+		<Unit filename="/home/audakel/Desktop/byu_cs/360/data_lab/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
