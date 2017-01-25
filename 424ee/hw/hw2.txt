@@ -1,0 +1,117 @@
+Austin Harrison
+
+ECEn 424 Homework Set #2
+
+===========================================================================
+Problem 2.87
+
+Description					hex 		M 			E 			V
+0							8000		0			-62			-0
+smallest value > 2 			4001		257/256		1 			257/256
+512							4800		1 			72 			-----
+largest denormalized 		00FF		255/256		-62			255x2^-70
+negative infinity			FF00		----		----		-----
+3BB0						----		27/16		-4 			27/256
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+===========================================================================
+Problem 2.93
+
+float_bits float_absval(float_bits f) {
+    unsigned exp = f >> 23 & 0xff;
+    unsigned frac = f & 0x7fffff;
+
+    if (exp == 0xFF && frac != 0){
+        return f;
+    }
+
+    return (exp << 23) | frac;
+}
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+===========================================================================
+Problem 3.58
+
+long decode2(long x, long y, long z);
+x = rdi
+y = rsi
+z = rdx
+
+y =- z
+x *= y
+long temp1 = y
+temp1 << 63
+temp1 >> 63
+long temp2 = x ^ temp1
+
+code:
+long decode2(longx, long y, long z){
+	long t1 = y - z;
+	long t2 = x * t1;
+	long t3 = temp1 << 63;
+	t3 >> 63;
+	long t4 = t3 ^ t2;
+
+	return t4;
+}
+
+decode2:
+	subq %z, %y
+	imulq %y, %x
+	movq %y, %rax
+	salq $63 %rax
+	sarq $63, %rax
+	xorq %x, %rax
+	ret
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+===========================================================================
+Problem 3.59
+
+typedef long long ll_t;
+void store_prod(ll_t *dest, int x, ll_t y) {
+    *dest = x*y;
+}
+
+movl 16(%ebp), %esi		; grab y and put it in esi
+movl 12(%ebp), %eax		; grab x and put it in eax
+movl %eax, %edx			; copy x into edx
+sarl $31, %edx			; shift x by 31 
+movl 20(%ebp), %ecx		; grab dest and put in ecx
+imull %eax, %ecx		; put x in to dest
+movl %edx, %ebx			; put high bits of x into ebx
+imull %esi, %ebx		; grab the sign / high bits of x * y
+addl %ebx, %ecx			; add high bits to dest
+mull %esi				; not sure
+leal (%ecx,%edx), %edx  
+movl 8(%ebp), %ecx		; next 3 lines are combining the high and low bits...?
+movl %eax, (%ecx)
+movl %edx, 4(%ecx)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+===========================================================================
+Problem 3.60 
+
+a) x = esi, n = ebx, result = edi, mask = edx
+b) res = -1, mask = 1
+c) mask != 0
+d) edx holds mask and changes on shifting
+e) mask is AND with x and then OR with result
+f) 
+
+int loop(intx, int n){
+	int result = -1;
+	int mask;
+
+	for (mask = 1; mask != 0; mask << n){
+		result ^= (mask & x);
+	}
+}
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
