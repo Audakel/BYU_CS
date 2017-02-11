@@ -1,0 +1,67 @@
+ECEn 424 Homework Set #3
+Submit your (hardcopy) solutions to the problems below in the homework box by 5:00 PM on the assigned date.
+
+=====================================================================
+Problem 3.62
+
+long switch3(long *p1, long *p2, mode_t action){
+	// rdi = p1
+	// rsi = p2
+	// edx = action
+
+	long res = 0;
+	switch(action){
+		case A:
+			long t1 = *p1;
+			long t2 = *p2;
+			*p1 = t2;			
+			res =  t2;
+			break;
+		case B:
+			t1 long = *p1;
+			t1 += *p2;
+			*p1 = t1;
+			res = *p2
+			break;
+		case C:
+			*p1 = 59;
+			res = *p2;
+			break;
+		case D:
+			long t1 = *p2;
+			*p1 = t1;
+			res = 27;
+		    break;	
+		case E:
+			res = 27;
+			break;
+		default:
+	}
+	
+	return res;
+}
+=====================================================================
+
+
+=====================================================================
+Problem 3.63
+=====================================================================
+
+
+=====================================================================
+Problem 3.65
+
+a) rdx
+b) rax
+c) 15
+Add this as part D of problem 3.65: Write a C code version of transpose() that makes use of the optimizations that are found in the compiler-generated loop. Use the parameter M in your code rather than numeric constants.
+
+
+=====================================================================
+=====================================================================
+Problem 3.70
+=====================================================================
+
+void proc (union ele *up){
+	up->next->y = *(up->next->p) - up->x;
+}

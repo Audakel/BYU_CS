@@ -1,7 +1,9 @@
-from random import randrange
 import math
-import sys
 import subprocess
+import sys
+from random import randrange
+
+
 # -*- coding: utf-8 -*-
 
 def rabinMiller(n):
@@ -88,32 +90,48 @@ def pow_mod(x, y, z):
 # ==================================================
 
 g = 5
-p_prime = generateLargePrime(1024)
-s_prime = generateLargePrime(1024)
-print 'p_prime (1024): ', p_prime
-print 's_prime (1024): ', s_prime
+# p_prime = generateLargePrime(500)
+# s_prime = generateLargePrime(500)
+p_prime = 2613264991539198574296957507693069833910771682156955363502741568271081169887379733195466807280349683940566644590251165984852974550054231429776615994049
+
+
+s_prime = 3102940307121415117820569752049188253265552765604526369330463859719290197692557186819770438381043026916367802805171599181251213848740719531995366835569
+# p_prime = 26
+# s_prime = 127
+
+print 'g = 5  \t '
+print 'p_prime (500): \t {}'.format(p_prime)
+print 's_prime (500): \t {}'.format(s_prime)
 
 # print '\n'
 # print """ )xxxxx[;;;;;;;;;>     (===||:::::::::::::::>    """ * 2
 # print '\n'
 
-print 'g^s % p value: (decimal) ', pow_mod(g, s_prime, p_prime)
+print 'g^s % p value:  \t {}'.format(pow(g, s_prime, p_prime))
 
-gtp = 67749690569418888025400624444688688025977596043413522234356322022068854456543862997680996690643987950932754488106344445896406365317218532880866565470565323247835119002332556246190620723731329294188328825755063485942321588388662868995499191470543978361145880055516760613661569563171702796311111429620475785599
-t = 1998286638065473057944506344030256054916203227381748916180906390214373930105605405985818224246280726328877245115163209963634633681313092395058312190549
+gtp = 663040551671407668636785906557379801593342790944684564456178426423271185450192030916801643476359904175317800002794905075590600378060958481055836637499
+ct = """U2FsdGVkX190Y7D2WrNt6K/14Fj8ZWp+nMmUlYbV7+iELWS0n2H4ixlj/Lb3/Czf
+tKuLAXxk+bK1ARIWDYzWw9FGK2CEWO1tI+wPmxs++jgyfNOnuyZ/9DVZuiq7VA2i
+ZUvG0/IaLTZo9nx9YY+c+176k8xwCCjgsUMJwVn2ctPv6HaWgQijXfLNPYJIoag1
+wcEb6Do+++U="""
 
-print '\n computing (g^t % p)^s % p\n'
+with open("foo", "w") as f:
+    f.write("".format(ct))
 
-gtpsp = 97338105707688870872788039781970886239773629103758955449931340026244391931031369450637733923693016533681445994601844218910958362322228859545556230248586163413798056724594949163377362263133980908426653338084702089307765086092830152339056160955019981661410773906871112960336759345771152850675692722974446782551
-gtpsp_ = pow_mod(gtp, s_prime, p_prime)
-print 'given (g^t%p)^s%p matches ours? ', (gtpsp == gtpsp_)
-print 'secret key: ', (gtpsp == gtpsp_)
+print '\ncomputing (g^t % p)^s % p\n'
 
-command = "openssl enc -bf -d -a -in foo -out bar"
+gtpsp = 393845220060828196090446661787286800727038942225253406997180333908386360944170488870351181157876304609599669012988461527352253337666377654912152124606
+gtpsp_ = pow(gtp, s_prime, p_prime)
+# gtpsp_ = gtp ** s_prime % p_prime
+
+# print 'given (g^t%p)^s%p matches ours? ', (gtpsp == gtpsp_)
+print 'secret key: ', gtpsp_
+
+command = "openssl enc -bf -d -a -in foo -out bar -pass pass:{}".format(gtpsp_)
 process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 process.wait()
-print process.returncode
 
-
+print 'openssl returncode: ', process.returncode
+print 'reading bar file...'
 with open('bar', 'r') as fin:
     print fin.read()
