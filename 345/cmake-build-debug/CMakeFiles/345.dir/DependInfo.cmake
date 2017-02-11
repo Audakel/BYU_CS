@@ -4,21 +4,21 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345fat.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345fat.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345interrupts.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345interrupts.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345lc3.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345lc3.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345mmu.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345mmu.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345p1.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p1.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345p2.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p2.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345p3.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p3.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345p4.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p4.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345p5.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p5.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345p6.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p6.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345park.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345park.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345semaphores.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345semaphores.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345signals.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345signals.c.o"
-  "/users/ugrad/h/haustind/Desktop/byu_cs/345/os345tasks.c" "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345tasks.c.o"
+  "/root/Desktop/byu_cs/345/os345.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345.c.o"
+  "/root/Desktop/byu_cs/345/os345fat.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345fat.c.o"
+  "/root/Desktop/byu_cs/345/os345interrupts.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345interrupts.c.o"
+  "/root/Desktop/byu_cs/345/os345lc3.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345lc3.c.o"
+  "/root/Desktop/byu_cs/345/os345mmu.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345mmu.c.o"
+  "/root/Desktop/byu_cs/345/os345p1.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p1.c.o"
+  "/root/Desktop/byu_cs/345/os345p2.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p2.c.o"
+  "/root/Desktop/byu_cs/345/os345p3.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p3.c.o"
+  "/root/Desktop/byu_cs/345/os345p4.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p4.c.o"
+  "/root/Desktop/byu_cs/345/os345p5.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p5.c.o"
+  "/root/Desktop/byu_cs/345/os345p6.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345p6.c.o"
+  "/root/Desktop/byu_cs/345/os345park.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345park.c.o"
+  "/root/Desktop/byu_cs/345/os345semaphores.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345semaphores.c.o"
+  "/root/Desktop/byu_cs/345/os345signals.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345signals.c.o"
+  "/root/Desktop/byu_cs/345/os345tasks.c" "/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles/345.dir/os345tasks.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

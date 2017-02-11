@@ -45,19 +45,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /users/ugrad/h/haustind/Desktop/clion-2016.3.2/bin/cmake/bin/cmake
+CMAKE_COMMAND = /root/Desktop/ide/clion-2016.3.2/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /users/ugrad/h/haustind/Desktop/clion-2016.3.2/bin/cmake/bin/cmake -E remove -f
+RM = /root/Desktop/ide/clion-2016.3.2/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /users/ugrad/h/haustind/Desktop/byu_cs/345
+CMAKE_SOURCE_DIR = /root/Desktop/byu_cs/345
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug
+CMAKE_BINARY_DIR = /root/Desktop/byu_cs/345/cmake-build-debug
 
 #=============================================================================
 # Target rules for target CMakeFiles/345.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug
 CMakeFiles/345.dir/all:
 	$(MAKE) -f CMakeFiles/345.dir/build.make CMakeFiles/345.dir/depend
 	$(MAKE) -f CMakeFiles/345.dir/build.make CMakeFiles/345.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 "Built target 345"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 "Built target 345"
 .PHONY : CMakeFiles/345.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/345.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/345.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles 16
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/345.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Desktop/byu_cs/345/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/345.dir/rule
 
 # Convenience name for target.

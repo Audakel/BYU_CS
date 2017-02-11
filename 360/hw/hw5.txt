@@ -1,0 +1,21 @@
+6.23
+Estimate the average time (in ms) to access a sector on the following disk:
+
+The average access time is the sum of the seek time, rotational latency, and transfer time.
+The seek time is 4ms. Then on average we will have to wait 1/2 rotation of the disk for the correct sector to come under the head. So at 15,000 RPM it takes 1/15000 to rotate, so we add 1/15000 / 2. Transfer time is 1/800 of a revolution of a disk. So we add (1/15000)/800 ms.
+
+
+6.29
+Suppose we have a system with the following properties:
+
+a) TTTTTTTTIIIOO
+b) 0110101110100
+
+
+6.37
+int size(void *hp) { return 
+(*(int *) hp) & (~7);
+
+
+6.41
+a) Miss rate for writes to buffer 25%

@@ -268,19 +268,83 @@ static int scheduler()
 	// ?? priorities, clean up dead tasks, and handle semaphores appropriately.
 
 	// schedule next task
-	nextTask = ++curTask;
+	schedulerPass = TRUE;
+	if (scheduler_mode == 0){
+        nextTask = deQ(rq, -1);
+        if (nextTask >= 0){
+            enQ(rq, nextTask, tcb[nextTask].priority);
+        }
+        else{
+            nextTask = 0;
+        }
+    } else{
+        for (int i = rq[0]; i > 0; i--){
+            if (tcb[rq[i]].name && tcb[rq[i]].taskTime > 0){
+                nextTask == rq[i];
+                --tcb[rq[i]].taskTime;
+                break;
+            }
+        }
 
-	// mask sure nextTask is valid
-	while (!tcb[nextTask].name)
-	{
-		if (++nextTask >= MAX_TASKS) nextTask = 0;
-	}
-	if (tcb[nextTask].signal & mySIGSTOP) return -1;
+        if (nextTask < 0){
+            allotTime();
+            nextTask = 0;
+        }
+    }
 
 	return nextTask;
 } // end scheduler
 
 
+int allotTime(){
+    int fair[MAX_TASKS] = {0};
+    int privilegeTaken[MAX_TASKS] = {0};
+    int time = rq[0] * 10;
+    int groupTime, leftOver, i, allotment, privilege, groupId, groups = 0;
+
+    for (i = rq[0]; i > 0; i--){
+        if (rq[i] == 0 || !tcb[rq[i]].name){
+            continue;
+        }
+
+        groupId = tcb[rq[i]].parent ? tcb[rq[i]].parent : rq[i];
+        if (fair[groupId] == 0){
+            ++groups;
+        }
+        ++fair[groupId];
+    }
+
+    if (!groups){
+        ++groups;
+    }
+
+    groupTime = time / groups;
+    leftOver = time - (groupTime * fair[0]);
+
+    for (i = rq[0]; i > 0; i--){
+        if (rq[i] == 0  || !tcb[rq[i]].name){
+            continue;
+        }
+
+        groupId = !tcb[rq[i]].parent ? rq[i] : tcb[rq[i]].parent;
+
+        allotment = groupTime/fair[groupId];
+        time -= allotment;
+
+        if(!privilegeTaken[groupId]){
+            privilege = groupTime - (allotment * fair[groupId]);
+            allotment += privilege;
+            time -= privilege;
+            privilegeTaken[groupId] = 1;
+        }
+
+        tcb[rq[i]].taskTime = allotment;
+
+    }
+
+    tcb[0].taskTime = time + leftOver;
+    return 0;
+}
 
 // **********************************************************************
 // **********************************************************************
