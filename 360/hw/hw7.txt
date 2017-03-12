@@ -1,0 +1,21 @@
+1a) Makes a UDP socket
+1b) Makes a TCP socket
+
+2a)assigning a transport address to the socket (a port number in IP networking)
+2b)assigning a transport address to the socket (a port number in IP networking)
+
+3) With TCP sockets, we saw that we can use the shutdown system call to close a socket or to terminate communication in a single direction. Since there is no concept of a connection in UDP, there is no need to call shutdown. However, the socket still uses up a file descriptor in the kernel, so we can free that up with the close system call just as we do with files.
+
+4a) Only data sent for UDP is on sendto() nothing to set up a connection
+4b) maximum transfer unit is 1500 byytes
+
+5a) Yes it is setting up a connection
+5b) The absolute limitation on TCP packet size is 64K (65535 bytes), but in practicality this is far larger than the size of any packet you will see, because the lower layers (e.g. ethernet) have lower packet sizes. The MTU (Maximum Transmission Unit) for Ethernet, for instance, is 1500 bytes.
+
+6a) It is out of order
+6b) TCP made sure it was all theere correctly
+6c) UDP for gaming / streaming. TCP for txt content
+
+7) Yes, if you tell your OS to let that port be free after you close it. Then something else can listen on it
+
+8) Yes.
