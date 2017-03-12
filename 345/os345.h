@@ -112,6 +112,7 @@ typedef struct							// task control block
 	Semaphore *event;					// blocked task semaphore
 	void* stack;						// task stack
 	jmp_buf context;					// task context pointer
+    int taskTime;
 } TCB;
 
 // Task specific variables

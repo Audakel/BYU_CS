@@ -1,4 +1,4 @@
-# Install script for directory: /users/ugrad/h/haustind/Desktop/byu_cs/345
+# Install script for directory: /root/Desktop/byu_cs/345
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/users/ugrad/h/haustind/Desktop/byu_cs/345/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/root/Desktop/byu_cs/345/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
